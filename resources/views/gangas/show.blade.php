@@ -8,7 +8,7 @@
                     <img class="border mt-3 p-2" src="{{ asset("/storage/img/$ganga->id-ganga-severa.jpg")}}">
                 </div>
                 <div class="col-md-8">
-                    @if(Auth::user() && (Auth::id() === $ganga->user_id || Auth::user()->rol === 'admin'))
+                    @if(Auth::user())
                         <form action="{{ route('gangas.like', $ganga->id) }}" method="POST" class="d-inline">
                             @method('PUT')
                             @csrf
