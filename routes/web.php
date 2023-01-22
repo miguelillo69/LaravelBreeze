@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GangaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[GangaController::class,'index'])->name('inici');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,5 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::put('/like/{id}', [GangaController::class, 'like'])->name('gangas.like');
+Route::put('/unlike/{id}', [GangaController::class, 'unlike'])->name('gangas.unlike');
+Route::get('/autor/{id}', [GangaController::class, 'autor'])->name('gangas.autor');
+
+Route::resource('categories',CategoryController::class)->only( 'index','show','edit' , 'update' , 'destroy','create','store');
+Route::resource('gangas',GangaController::class)->only(  'edit' , 'update' , 'destroy','create')->middleware('roles');
+Route::resource('gangas',GangaController::class)->except( 'edit' , 'update' , 'destroy','create');
 
 require __DIR__.'/auth.php';
