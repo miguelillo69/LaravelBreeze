@@ -33,7 +33,7 @@ Route::put('/unlike/{id}', [GangaController::class, 'unlike'])->name('gangas.unl
 Route::get('/autor/{id}', [GangaController::class, 'autor'])->name('gangas.autor');
 
 Route::resource('categories',CategoryController::class)->only( 'index','show','edit' , 'update' , 'destroy','create','store');
-Route::resource('gangas',GangaController::class)->only(  'edit' , 'update' , 'destroy','create')->middleware('roles');
-Route::resource('gangas',GangaController::class)->except( 'edit' , 'update' , 'destroy','create');
+Route::resource('gangas',GangaController::class)->only(  'edit' , 'update' , 'destroy')->middleware('roles');
+Route::resource('gangas',GangaController::class)->except( 'edit' , 'update' , 'destroy');
 
 require __DIR__.'/auth.php';
